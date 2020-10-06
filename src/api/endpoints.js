@@ -1,6 +1,7 @@
 export const ENDPOINTS = Object.freeze({
     FRIENDS: {
-      CREATE: '/batcave/clients',
+      ALL: '/alfred/v1/friend/:id',
+      CREATE: '/alfred/v1/friend/:id/create',
     },
   })
   

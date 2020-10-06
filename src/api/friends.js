@@ -1,8 +1,18 @@
-import { ENDPOINTS } from 'api/endpoints'
 import { baseRequest as request } from 'util/request'
 import { baseConfig } from 'util/config'
+import { ENDPOINTS } from 'api/endpoints'
+import { HTTP } from 'api/http'
 const { token } = baseConfig
 
 export function getFriends(_key, clientId) {
-    return request(`${ENDPOINTS.COMPANY.GET_COMPANY}/${clientId}?token=${token}`)
+    return request(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientId)}?token=${token}`, {
+        method: HTTP.GET,
+    })
+}
+
+export function createFriends(_key, clientId, body) {
+    return request(`${ENDPOINTS.FRIENDS.CREATE.replace(':id', clientId)}?token=${token}`, {
+        method: HTTP.POST,
+        body,
+    })
 }
