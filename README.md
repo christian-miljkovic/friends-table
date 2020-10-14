@@ -1,8 +1,9 @@
 ## Next Steps
-1. Create cypress tests for `GET` clients
-2. Create cypress tests for `POST` create clients
-3. Implement logic for step (1)
-4. Implement logic for step (2)
+1. Add Routes so you can pass in a clientId
+2. Create cypress tests for `GET` clients
+3. Create cypress tests for `POST` create clients
+4. Implement logic for step (1)
+5. Implement logic for step (2)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

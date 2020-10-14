@@ -1,7 +1,7 @@
-import { baseRequest as request } from 'util/request'
-import { baseConfig } from 'util/config'
-import { ENDPOINTS } from 'api/endpoints'
-import { HTTP } from 'api/http'
+import { baseRequest as request } from '../util/request'
+import { baseConfig } from '../util/config'
+import { ENDPOINTS } from './endpoints'
+import { HTTP } from './http'
 const { token } = baseConfig
 
 export function getFriends(_key, clientId) {

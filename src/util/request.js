@@ -1,5 +1,5 @@
-import { baseConfig } from 'util/config'
-import { HTTP } from 'constants/http'
+import { baseConfig } from './config'
+import { HTTP } from '../api/http'
 
 const { apiUrl } = baseConfig
 
