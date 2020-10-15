@@ -7,6 +7,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setting up styling
+[Article to follow](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
+[Cypress-Linting](https://github.com/cypress-io/eslint-plugin-cypress)
+
 ## Available Scripts
 
 In the project directory, you can run:
