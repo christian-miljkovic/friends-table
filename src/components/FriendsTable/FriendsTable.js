@@ -16,10 +16,11 @@ import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 import { v4 as uuidv4 } from 'uuid';
-import { createFriends } from '../../api/friends'
-import { useQuery } from 'react-query'
+import { createFriends, getFriends } from '../../api/friends'
+import { useMutation, useQuery } from 'react-query'
 import { QUERIES } from '../../api/queries'
 import { useParams } from 'react-router-dom'
+import { ToastProvider, useToasts } from 'react-toast-notifications'
 
 
 const useStyles = makeStyles(theme => ({
@@ -74,10 +75,14 @@ const CustomTableCell = ({ row, name, onChange }) => {
   );
 };
 
-export const FriendsTable = () => {
+const CustomTable = () => {
   const { clientId } = useParams()
-  const queryKey = [QUERIES.FRIENDS]
-  const { data, isLoading } = useQuery(queryKey, createFriends)
+  const getQueryKey = [QUERIES.FRIENDS, clientId]
+  const { data: friendsData, isLoading } = useQuery(getQueryKey, getFriends)
+  const [createFriendsQuery, { isLoading: createFriendsLoading, isError, isSuccess, data: newFriendsData }] = useMutation(createFriends)
+  const { addToast } = useToasts()
+
+
   const [rows, setRows] = React.useState([
     createData("", "", "", ""),
   ]);
@@ -94,6 +99,12 @@ export const FriendsTable = () => {
       });
     });
   };
+
+  const onUploadClick = async () => {
+    await createFriendsQuery({ rows })
+    if(!createFriendsLoading && isError) addToast('Failed to add friends', { appearance: 'error' })
+    else addToast('Successfully added friends', { appearance: 'success' })
+  }
 
   const addRow = () => {
     const lastRow = rows[rows.length - 1]
@@ -190,7 +201,7 @@ export const FriendsTable = () => {
         </Table>     
       </Paper>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
-        <IconButton>
+        <IconButton onClick={() => onUploadClick()}>
           <CloudUploadIcon fontSize="large"/>
         </IconButton> 
         <IconButton onClick={() => addRow()}>
@@ -200,3 +211,9 @@ export const FriendsTable = () => {
     </div>
   );
 }
+
+export const FriendsTable = () => (
+  <ToastProvider>
+    <CustomTable />
+  </ToastProvider>
+)
