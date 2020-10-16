@@ -59,7 +59,7 @@ const CustomTableCell = ({ row, name, onChange }) => {
   const { isEditMode } = row;
   const attributeToLabel = {firstName: 'First Name', lastName: 'Last Name', birthday: 'MM-DD-YYYY', phoneNumber: '+12035724630'}
   return (
-    <TableCell align="left" className={classes.tableCell}>
+    <TableCell align="left" className={classes.tableCell} aria-label={`${name}-cell`}>
       {isEditMode ? (
         <TextField
           value={row[name]}
@@ -164,8 +164,8 @@ const CustomTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.id}>
+            {rows.map((row, index) => (
+              <TableRow key={row.id} aria-label={`row-${index}`}>
                 <TableCell className={classes.selectTableCell}>
                   {row.isEditMode ? (
                     <>

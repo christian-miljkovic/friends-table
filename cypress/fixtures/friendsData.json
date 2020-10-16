@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "client_id": "8c7af173-7b78-47fe-ab82-0fc0995aa3f4",
+      "first_name": "Christian",
+      "last_name": "Miljkovic",
+      "phone_number": "+12035724630",
+      "birthday": "1995-01-24",
+      "id": "87168e88-9abe-49db-bd5b-e7803a2f61c2",
+      "created_at": "2020-10-16",
+      "updated_at": "2020-10-16"
+    },
+    {
+      "client_id": "8c7af173-7b78-47fe-ab82-0fc0995aa3f4",
+      "first_name": "Erick",
+      "last_name": "Miljkovic",
+      "phone_number": "+12034004630",
+      "birthday": "2000-01-24",
+      "id": "87168e99-1abe-50db-bd5b-e7803a2f61c2",
+      "created_at": "2020-10-16",
+      "updated_at": "2020-10-16"
+    }
+  ]
+}
