@@ -1,8 +1,8 @@
-import { baseConfig } from '../../src/util/config';
 import { ENDPOINTS } from '../../src/api/endpoints';
 import { v4 as uuidv4 } from 'uuid'
 
 const clientUUID = uuidv4()
+const token = Cypress.env("REACT_APP_API_TOKEN")
 
 const hasFriendsPresent = (friends = []) => {
   friends.map((friend, index) => {
@@ -21,7 +21,8 @@ describe('Friends Table', () => {
   it('should be able to get all friends for a client', () => {
     cy.server()
     cy.fixture('friendsData').as('friendsJson')
-    cy.route(ENDPOINTS.FRIENDS.ALL.replace(':id', clientUUID), '@friendsJson').as('friends')
+    // have to do a custom polyfill to change fetch to XHR see amber
+    cy.route(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientUUID)}?token=${token}`, '@friendsJson').as('friends')
     cy.visit(`/table/${clientUUID}`)
 
     cy.wait('@friends').then(({ response }) => {
