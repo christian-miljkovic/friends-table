@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -78,16 +78,29 @@ const CustomTableCell = ({ row, name, onChange }) => {
 const CustomTable = () => {
   const { clientId } = useParams()
   const getQueryKey = [QUERIES.FRIENDS, clientId]
-  const { data: friendsData, isLoading } = useQuery(getQueryKey, getFriends)
+  const { data: friendsData, isSuccess: isGetFriendsSuccess, isLoading: isGetFriendsLoading } = useQuery(getQueryKey, getFriends)
   const [createFriendsQuery, { isLoading: createFriendsLoading, isError, isSuccess, data: newFriendsData }] = useMutation(createFriends)
   const { addToast } = useToasts()
+  
 
-
-  const [rows, setRows] = React.useState([
+  const [rows, setRows] = useState([
     createData("", "", "", ""),
   ]);
-  const [previous, setPrevious] = React.useState({});
+  const [previous, setPrevious] = useState({});
   const classes = useStyles();
+  
+
+  useEffect(() => {
+    if(!isGetFriendsLoading && isGetFriendsSuccess){
+      const friends = friendsData?.data
+      let allFriendRows = []
+      friends.map((friend) => {
+        const { firstName, lastName, birthday, phoneNumber } = friend
+        allFriendRows.push(createData(firstName, lastName, birthday, phoneNumber))
+      })
+      setRows(allFriendRows)
+    }  
+  }, [friendsData])
 
   const onToggleEditMode = id => {
     setRows(state => {

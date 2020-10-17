@@ -5,7 +5,6 @@ import { HTTP } from './http'
 const { token } = baseConfig
 
 export function getFriends(_key, clientId) {
-    console.log('getFriends', clientId)
     return request(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientId)}?token=${token}`, {
         method: HTTP.GET,
     })
