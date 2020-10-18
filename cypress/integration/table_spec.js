@@ -14,9 +14,7 @@ const hasFriendsPresent = (friends = []) => {
       cy.findByLabelText(/phonenumber\-cell/i).contains(friend.phoneNumber)
     })
   })
-  
 }
-
 
 describe('Friends Table', () => {
   it('should be able to get all friends for a client', () => {
@@ -28,7 +26,20 @@ describe('Friends Table', () => {
     cy.wait('@friends').then(({ response }) => {
       const friends = response?.body?.data
       hasFriendsPresent(convertToCamelCase(friends))
-    })
-    
-  });
-});
+    })  
+  })
+  it('should be able to get create one friend for a client', () => {
+    cy.server()
+    cy.route(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientUUID)}?token=${token}`, '')
+    cy.route(`${ENDPOINTS.FRIENDS.CREATE.replace(':id', clientUUID)}?token=${token}`, '')
+    cy.visit(`/table/${clientUUID}`)
+
+    cy.findByLabelText('edit-button').should('be.visible').click()
+    cy.findByLabelText(/firstname\-cell/i).type('Christian')
+    cy.findByLabelText(/lastname\-cell/i).type('Miljkovic')
+    cy.findByLabelText(/birthday\-cell/i).type('01-24-1995')
+    cy.findByLabelText(/phonenumber\-cell/i).type('+12035724630')
+    cy.findByLabelText('done-button').should('be.visible').click()
+    cy.findByLabelText('upload-button').should('be.visible').click()
+  })
+})

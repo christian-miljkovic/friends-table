@@ -183,13 +183,13 @@ const CustomTable = () => {
                   {row.isEditMode ? (
                     <>
                       <IconButton
-                        aria-label="done"
+                        aria-label="done-button"
                         onClick={() => onToggleEditMode(row.id)}
                       >
                         <DoneIcon />
                       </IconButton>
                       <IconButton
-                        aria-label="revert"
+                        aria-label="revert-button"
                         onClick={() => onRevert(row.id)}
                       >
                         <RevertIcon />
@@ -197,7 +197,7 @@ const CustomTable = () => {
                     </>
                   ) : (
                     <IconButton
-                      aria-label="delete"
+                      aria-label="edit-button"
                       onClick={() => onToggleEditMode(row.id)}
                     >
                       <EditIcon />
@@ -214,10 +214,10 @@ const CustomTable = () => {
         </Table>     
       </Paper>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
-        <IconButton onClick={() => onUploadClick()}>
+        <IconButton aria-label="upload-button" onClick={() => onUploadClick()}>
           <CloudUploadIcon fontSize="large"/>
         </IconButton> 
-        <IconButton onClick={() => addRow()}>
+        <IconButton aria-label="add-row-button" onClick={() => addRow()}>
           <AddCircle fontSize="large"/>
         </IconButton>                
       </Grid>
