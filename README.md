@@ -7,6 +7,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deployment
+* We use the Heroku Buildpack for `create-react-app` which is for static hosting of React.js web apps
+* More details can be found [here](https://github.com/mars/create-react-app-buildpack)
+* And [here](https://blog.heroku.com/deploying-react-with-zero-configuration) for Heroku
+
+Steps:
+1. Commit to git
+2. Run `git push heroku master` from CLI
+
 ## Setting up styling
 [Article to follow](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
 [Cypress-Linting](https://github.com/cypress-io/eslint-plugin-cypress)
@@ -70,7 +79,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ma
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
+Steps:
+1. Commit to git
+2. Run `git push heroku master` from CLI
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
