@@ -1,4 +1,5 @@
 import { ENDPOINTS } from '../../src/api/endpoints';
+import { HTTP } from '../../src/api/http'
 import { convertToCamelCase } from '../../src/util/transformers'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -30,8 +31,9 @@ describe('Friends Table', () => {
   })
   it('should be able to get create one friend for a client', () => {
     cy.server()
+    cy.fixture('createFriendsData').as('createFriendsJson')
     cy.route(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientUUID)}?token=${token}`, '')
-    cy.route(`${ENDPOINTS.FRIENDS.CREATE.replace(':id', clientUUID)}?token=${token}`, '')
+    cy.route(HTTP.POST, `${ENDPOINTS.FRIENDS.CREATE.replace(':id', clientUUID)}?token=${token}`, '@createFriendsJson').as('newFriends')
     cy.visit(`/table/${clientUUID}`)
 
     cy.findByLabelText('edit-button').should('be.visible').click()
@@ -41,5 +43,10 @@ describe('Friends Table', () => {
     cy.findByLabelText(/phonenumber\-cell/i).type('+12035724630')
     cy.findByLabelText('done-button').should('be.visible').click()
     cy.findByLabelText('upload-button').should('be.visible').click()
+
+    cy.wait('@newFriends').then(({ response }) => {
+      const friends = response?.body?.data
+      hasFriendsPresent(convertToCamelCase(friends))
+    }) 
   })
 })

@@ -76,22 +76,31 @@ const CustomTableCell = ({ row, name, onChange }) => {
 };
 
 const CustomTable = () => {
-  const { clientId } = useParams()
-  const getQueryKey = [QUERIES.FRIENDS, clientId]
-  const { data: friendsData, isSuccess: isGetFriendsSuccess, isLoading: isGetFriendsLoading } = useQuery(getQueryKey, getFriends)
-  const [createFriendsQuery, { isLoading: createFriendsLoading, isError, isSuccess, data: newFriendsData }] = useMutation(createFriends)
   const { addToast } = useToasts()
-  
-
+  const { clientId } = useParams()
   const [rows, setRows] = useState([
     createData("", "", "", ""),
   ]);
   const [previous, setPrevious] = useState({});
   const classes = useStyles();
-  
 
+  const getQueryKey = [QUERIES.FRIENDS.ALL, clientId]
+  const { data: friendsData, isSuccess: isGetFriendsSuccess, isLoading: isGetFriendsLoading } = useQuery(getQueryKey, getFriends)
+
+  const [createFriendsQuery] = useMutation(createFriends, {
+    onError() {
+      addToast('Failed to add friends', { appearance: 'error' })
+    },
+    onSuccess(data) {
+      addToast('Successfully added friends', { appearance: 'success' })
+      const { firstName, lastName, birthday, phoneNumber } = data
+      const newRows = rows.concat(createData(firstName, lastName, birthday, phoneNumber))
+      setRows(newRows)
+    },
+  })
+  
   useEffect(() => {
-    if(!isGetFriendsLoading && isGetFriendsSuccess){
+    if(!isGetFriendsLoading && isGetFriendsSuccess && friendsData){
       const friends = friendsData?.data
       let allFriendRows = []
       friends.map((friend) => {
@@ -114,9 +123,7 @@ const CustomTable = () => {
   };
 
   const onUploadClick = async () => {
-    await createFriendsQuery({ rows })
-    if(!createFriendsLoading && isError) addToast('Failed to add friends', { appearance: 'error' })
-    else addToast('Successfully added friends', { appearance: 'success' })
+    await createFriendsQuery({ clientId, body: rows })
   }
 
   const addRow = () => {

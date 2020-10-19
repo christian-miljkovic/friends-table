@@ -10,9 +10,10 @@ export function getFriends(_key, clientId) {
     })
 }
 
-export function createFriends(_key, clientId, body) {
+export function createFriends({_key, clientId, body}) {
+    console.log(clientId, body)
     return request(`${ENDPOINTS.FRIENDS.CREATE.replace(':id', clientId)}?token=${token}`, {
         method: HTTP.POST,
-        body,
+        body: { "data": body },
     })
 }
