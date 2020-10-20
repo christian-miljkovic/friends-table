@@ -1,4 +1,8 @@
+import runtimeEnv from '@mars/heroku-js-runtime-env';
+
+const env = runtimeEnv();
+
 export const baseConfig = {
-  apiUrl: process.env.REACT_APP_API_URL,
-  token: process.env.REACT_APP_API_TOKEN,
+  apiUrl: env.REACT_APP_API_URL,
+  token: env.REACT_APP_API_TOKEN,
 }
