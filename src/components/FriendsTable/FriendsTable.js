@@ -100,10 +100,9 @@ const CustomTable = () => {
   })
   
   useEffect(() => {
-    if(!isGetFriendsLoading && isGetFriendsSuccess && friendsData){
-      const friends = friendsData?.data
+    if(!isGetFriendsLoading && isGetFriendsSuccess && !friendsData?.data){
       let allFriendRows = []
-      friends.map((friend) => {
+      friendsData.data.forEach((friend) => {
         const { firstName, lastName, birthday, phoneNumber } = friend
         allFriendRows.push(createData(firstName, lastName, birthday, phoneNumber))
       })

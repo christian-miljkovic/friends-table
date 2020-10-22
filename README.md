@@ -14,7 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Steps:
 1. Commit to git
-2. Run `git push heroku master` from CLI
+2. Run `git push heroku HEAD:master` from CLI
 
 ## Setting up styling
 [Article to follow](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
