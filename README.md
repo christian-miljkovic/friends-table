@@ -1,18 +1,14 @@
 ## Next Steps
-1. Add Routes so you can pass in a clientId
-2. Create cypress tests for `GET` clients
-3. Create cypress tests for `POST` create clients
-4. Implement logic for step (1)
-5. Implement logic for step (2)
+1. Fix initial state not having empty row -> need to refresh page now
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Deployment
+## Deployment Infrastructure
 * We use the Heroku Buildpack for `create-react-app` which is for static hosting of React.js web apps
 * More details can be found [here](https://github.com/mars/create-react-app-buildpack)
 * And [here](https://blog.heroku.com/deploying-react-with-zero-configuration) for Heroku
 
-Steps:
+## Deployment Steps:
 1. Commit to git
 2. Run `git push heroku HEAD:master` from CLI
 
@@ -78,10 +74,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ma
 ### Advanced Configuration
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-Steps:
-1. Commit to git
-2. Run `git push heroku master` from CLI
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
