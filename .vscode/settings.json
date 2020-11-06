@@ -1,0 +1,25 @@
+{
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#364e63",
+		"activityBar.activeBorder": "#150b10",
+		"activityBar.background": "#364e63",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#150b10",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"statusBar.background": "#243442",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#364e63",
+		"titleBar.activeBackground": "#243442",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#24344299",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#243442",
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"javascript.format.semicolons": "remove",
+	"javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+	"javascript.format.enable": true,
+	"prettier.semi": false
+}

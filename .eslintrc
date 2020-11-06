@@ -1,0 +1,133 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "airbnb",
+        "prettier",
+        ".eslintrc.jsx-a11y",
+        "plugin:cypress/recommended"
+    ],
+    "plugins": [
+        "prettier",
+        "cypress"
+    ],
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "jest": true,
+        "cypress/globals": true
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "moduleDirectory": [
+                    "node_modules",
+                    "src"
+                ]
+            }
+        }
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "arrow-parens": [
+            "error",
+            "always"
+        ],
+        "class-methods-use-this": 0,
+        "consistent-return": 0,
+        "import/no-cycle": 0,
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+        "import/prefer-default-export": 0,
+        "max-len": [
+            "error",
+            {
+                "code": 120
+            }
+        ],
+        "no-cond-assign": [
+            "error",
+            "except-parens"
+        ],
+        "no-else-return": 0,
+        "no-lonely-if": 0,
+        "no-nested-ternary": 0,
+        "no-shadow": 0,
+        "no-tabs": [
+            "error"
+        ],
+        "no-underscore-dangle": 0,
+        "no-use-before-define": 0,
+        "object-curly-newline": [
+            "error",
+            {
+                "consistent": true
+            }
+        ],
+        "prefer-template": 0,
+        "prefer-destructuring": 0,
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        "react/destructuring-assignment": 0,
+        "react/forbid-prop-types": 0,
+        "react/jsx-boolean-value": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/no-access-state-in-setstate": 0,
+        "react/no-did-update-set-state": 0,
+        "react/no-children-prop": 0,
+        "react/prefer-stateless-function": 0,
+        "react/prop-types": [
+            1,
+            {
+                "skipUndeclared": true
+            }
+        ],
+        "react/require-default-props": 0,
+        "react/no-unescaped-entities": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/static-property-placement": 0,
+        "react/state-in-constructor": 0,
+        "react/jsx-curly-newline": 0,
+        "react/jsx-wrap-multilines": [
+            "error",
+            {
+                "declaration": false,
+                "assignment": false
+            }
+        ],
+        "react/jsx-closing-tag-location": 0,
+        "semi": [
+            "error",
+            "never"
+        ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": true,
+                "ignorePropertyModificationsFor": [
+                    "draft",
+                    "acc"
+                ]
+            }
+        ],
+        "strict": 0
+    }
+}

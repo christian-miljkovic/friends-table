@@ -9,11 +9,16 @@ export async function baseRequest(path, options = {}) {
   const method = options.method || HTTP.GET
   const body = options.body && JSON.stringify(options.body)
 
-  const response = await fetch(`${apiUrl}${path}`, { ...options, headers, method, body })
+  const response = await fetch(`${apiUrl}${path}`, {
+    ...options,
+    headers,
+    method,
+    body,
+  })
   if (response.ok) {
     const responseJson = await response.json()
     return convertToCamelCase(responseJson)
-  } 
+  }
 
   throw Error
 }
