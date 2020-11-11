@@ -1,5 +1,7 @@
 ## Next Steps
-1. Fix initial state not having empty row -> need to refresh page now
+1. Fix birthday conversion code (research if FE or BE should handle this)
+2. Validate and require data input into the table
+3. Delete friends
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
