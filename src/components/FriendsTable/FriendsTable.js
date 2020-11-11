@@ -21,6 +21,9 @@ import { useMutation, useQuery } from 'react-query'
 import { QUERIES } from '../../api/queries'
 import { useParams } from 'react-router-dom'
 import { ToastProvider, useToasts } from 'react-toast-notifications'
+import isEmpty from 'lodash/isEmpty'
+import isUndefined from 'lodash/isUndefined'
+import dayjs from 'dayjs'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,16 +108,13 @@ const CustomTable = () => {
   })
 
   useEffect(() => {
-    if (friendsData?.data) {
+    const friends = friendsData?.data
+    if (!isUndefined(friends) && !isEmpty(friends)) {
       let allFriendRows = []
       friendsData.data.forEach((friend) => {
         const { firstName, lastName, birthday, phoneNumber } = friend
-        const date = new Date(birthday)
-        const month = date.getMonth()
-        const year = date.getFullYear()
-        const day = date.getDay()
-
-        allFriendRows.push(createData(firstName, lastName, birthday, phoneNumber))
+        const formattedBirthday = dayjs(birthday).format('MM-DD-YYYY')
+        allFriendRows.push(createData(firstName, lastName, formattedBirthday, phoneNumber))
       })
       setRows(allFriendRows)
     }
