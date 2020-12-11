@@ -16,10 +16,19 @@
 		"titleBar.inactiveForeground": "#e7e7e799"
 	},
 	"peacock.color": "#243442",
-	"editor.formatOnPaste": true,
 	"editor.formatOnSave": true,
-	"javascript.format.semicolons": "remove",
-	"javascript.format.insertSpaceAfterSemicolonInForStatements": false,
-	"javascript.format.enable": true,
-	"prettier.semi": false
+	"javascript.format.enable": false,
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	  },
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	  },
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	  },
+	"eslint.validate": ["javascript"]
 }
