@@ -1,7 +1,7 @@
 import React from 'react'
 import { hot } from 'react-hot-loader/root'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { FriendsTable } from './components/FriendsTable'
+import { FriendsTable } from './screens/FriendsTable'
 
 const App = () => {
   return (

@@ -1,20 +1,25 @@
 ## Next Steps
+
+1. Make row clickable
 1. Fix birthday conversion code (research if FE or BE should handle this)
-2. Validate and require data input into the table
-3. Delete friends
+1. Validate and require data input into the table
+1. Delete friends
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Deployment Infrastructure
-* We use the Heroku Buildpack for `create-react-app` which is for static hosting of React.js web apps
-* More details can be found [here](https://github.com/mars/create-react-app-buildpack)
-* And [here](https://blog.heroku.com/deploying-react-with-zero-configuration) for Heroku
+
+- We use the Heroku Buildpack for `create-react-app` which is for static hosting of React.js web apps
+- More details can be found [here](https://github.com/mars/create-react-app-buildpack)
+- And [here](https://blog.heroku.com/deploying-react-with-zero-configuration) for Heroku
 
 ## Deployment Steps:
+
 1. Commit to git
 2. Run `git push heroku HEAD:master` from CLI
 
 ## Setting up styling
+
 [Article to follow](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
 [Cypress-Linting](https://github.com/cypress-io/eslint-plugin-cypress)
 

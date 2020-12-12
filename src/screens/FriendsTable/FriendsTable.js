@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import { IconButton } from '@material-ui/core'
+import { ClickableRow } from './components/ClickableRow'
+
 // Icons
 import AddCircle from '@material-ui/icons/AddCircle'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import DoneIcon from '@material-ui/icons/DoneAllTwoTone'
-import EditIcon from '@material-ui/icons/EditOutlined'
-import RevertIcon from '@material-ui/icons/NotInterestedOutlined'
 import { v4 as uuidv4 } from 'uuid'
-import { createFriends, getFriends } from '../../api/friends'
+import { createFriends, getFriends } from './api/friends'
 import { useMutation, useQuery } from 'react-query'
 import { QUERIES } from '../../api/queries'
 import { useParams } from 'react-router-dom'
@@ -24,28 +21,23 @@ import { ToastProvider, useToasts } from 'react-toast-notifications'
 import isEmpty from 'lodash/isEmpty'
 import isUndefined from 'lodash/isUndefined'
 import dayjs from 'dayjs'
+import styled from 'styled-components'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 650,
-  },
-  selectTableCell: {
-    width: 60,
-  },
-  tableCell: {
-    width: 130,
-    height: 40,
-  },
-  input: {
-    width: 130,
-    height: 40,
-  },
-}))
+const StyledPaper = styled(Paper)`
+  @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+    width: 375px;
+  }
+  width: 375px;
+  margin-top: 10px;
+`
+
+const StyledTable = styled(Table)`
+  width: 375px;
+`
+
+const StyledTableCell = styled(TableCell)`
+  width: 100%;
+`
 
 const createData = (firstName, lastName, birthday, phoneNumber) => ({
   id: uuidv4(),
@@ -56,38 +48,11 @@ const createData = (firstName, lastName, birthday, phoneNumber) => ({
   isEditMode: false,
 })
 
-const CustomTableCell = ({ row, name, onChange }) => {
-  const classes = useStyles()
-  const { isEditMode } = row
-  const attributeToLabel = {
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    birthday: 'MM-DD-YYYY',
-    phoneNumber: '+12035724630',
-  }
-  return (
-    <TableCell align="left" className={classes.tableCell} aria-label={`${name}-cell`}>
-      {isEditMode ? (
-        <TextField
-          value={row[name]}
-          name={name}
-          onChange={(e) => onChange(e, row)}
-          className={classes.input}
-          label={attributeToLabel[name]}
-        />
-      ) : (
-        row[name]
-      )}
-    </TableCell>
-  )
-}
-
 const CustomTable = () => {
   const { addToast } = useToasts()
   const { clientId } = useParams()
   const [rows, setRows] = useState([createData('', '', '', '')])
   const [previous, setPrevious] = useState({})
-  const classes = useStyles()
 
   const getQueryKey = [QUERIES.FRIENDS.ALL, clientId]
   const { data: friendsData, isSuccess: isGetFriendsSuccess, isLoading: isGetFriendsLoading } = useQuery(
@@ -164,56 +129,25 @@ const CustomTable = () => {
     setRows(newRows)
   }
 
-  const onDelete = (id) => {
-    const newRows = rows
-      .map((row) => {
-        return row.id !== id ? row : undefined
-      })
-      .filter(Boolean)
-    setRows(newRows)
-  }
-
   return (
     <div>
-      <Paper className={classes.root}>
-        <Table className={classes.table} aria-label="caption table">
+      <StyledPaper>
+        <StyledTable aria-label="caption table">
           <TableHead>
             <TableRow>
-              <TableCell align="left" />
-              <TableCell align="left">First Name</TableCell>
-              <TableCell align="left">Last Name</TableCell>
-              <TableCell align="left">Birthday</TableCell>
-              <TableCell align="left">Phone Number</TableCell>
+              <StyledTableCell align="left">First Name</StyledTableCell>
+              <StyledTableCell align="left">Last Name</StyledTableCell>
+              <StyledTableCell align="left">Birthday</StyledTableCell>
+              <StyledTableCell align="left">Phone Number</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow key={row.id} aria-label={`row-${index}`}>
-                <TableCell className={classes.selectTableCell}>
-                  {row.isEditMode ? (
-                    <>
-                      <IconButton aria-label="done-button" onClick={() => onToggleEditMode(row.id)}>
-                        <DoneIcon />
-                      </IconButton>
-                      <IconButton aria-label="delete-button" onClick={() => onDelete(row.id)}>
-                        <RevertIcon />
-                      </IconButton>
-                    </>
-                  ) : (
-                    <IconButton aria-label="edit-button" onClick={() => onToggleEditMode(row.id)}>
-                      <EditIcon />
-                    </IconButton>
-                  )}
-                </TableCell>
-                <CustomTableCell {...{ row, name: 'firstName', onChange }} />
-                <CustomTableCell {...{ row, name: 'lastName', onChange }} />
-                <CustomTableCell {...{ row, name: 'birthday', onChange }} />
-                <CustomTableCell {...{ row, name: 'phoneNumber', onChange }} />
-              </TableRow>
+              <ClickableRow row={row} index={index} />
             ))}
           </TableBody>
-        </Table>
-      </Paper>
+        </StyledTable>
+      </StyledPaper>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
         <IconButton aria-label="upload-button" onClick={() => onUploadClick()}>
           <CloudUploadIcon fontSize="large" />
