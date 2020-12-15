@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CustomTableCell } from './components/CustomTableCell'
+import { CustomTableCell } from './components/CustomTableCell/CustomTableCell'
 import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { IconButton } from '@material-ui/core'
+import { FriendModal } from './components/FriendModal'
 
 // Icons
 import AddCircle from '@material-ui/icons/AddCircle'
@@ -57,8 +58,8 @@ const CustomTable = () => {
   const { addToast } = useToasts()
   const { clientId } = useParams()
   const [rows, setRows] = useState([createData('', '', '', '')])
-  const [previous, setPrevious] = useState({})
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalData, setModalData] = useState()
 
   const getQueryKey = [QUERIES.FRIENDS.ALL, clientId]
   const { data: friendsData, isLoading: isGetFriendsLoading } = useQuery(getQueryKey, getFriends)
@@ -88,17 +89,6 @@ const CustomTable = () => {
     }
   }, [friendsData])
 
-  const onToggleEditMode = (id) => {
-    setRows((_state) => {
-      return rows.map((row) => {
-        if (row.id === id) {
-          return { ...row, isEditMode: !row.isEditMode }
-        }
-        return row
-      })
-    })
-  }
-
   const onUploadClick = async () => {
     await createFriendsQuery({ clientId, body: rows })
   }
@@ -116,20 +106,9 @@ const CustomTable = () => {
     return !(row.firstName && row.lastName && row.birthday && row.phoneNumber)
   }
 
-  const onChange = (e, row) => {
-    if (!previous[row.id]) {
-      setPrevious((state) => ({ ...state, [row.id]: row }))
-    }
-    const value = e.target.value
-    const name = e.target.name
-    const { id } = row
-    const newRows = rows.map((row) => {
-      if (row.id === id) {
-        return { ...row, [name]: value }
-      }
-      return row
-    })
-    setRows(newRows)
+  const handleClick = (row) => {
+    setIsModalOpen(true)
+    setModalData(row)
   }
 
   return (
@@ -146,7 +125,7 @@ const CustomTable = () => {
           </StyledTableHeader>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow key={row.id} aria-label={`row-${index}`} onClick={() => console.debug('hello')}>
+              <TableRow key={row.id} aria-label={`row-${index}`} onClick={() => handleClick(row)}>
                 <CustomTableCell {...{ row, name: 'firstName' }} />
                 <CustomTableCell {...{ row, name: 'lastName' }} />
                 <CustomTableCell {...{ row, name: 'birthday' }} />
@@ -164,6 +143,7 @@ const CustomTable = () => {
           <AddCircle fontSize="large" />
         </IconButton>
       </Grid>
+      <FriendModal isOpen={isModalOpen} data={modalData} />
     </>
   )
 }
