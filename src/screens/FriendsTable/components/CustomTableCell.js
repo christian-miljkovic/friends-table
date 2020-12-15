@@ -7,7 +7,7 @@ const StyledTableCell = styled(TableCell)`
   height: 40;
 `
 
-export const CustomTableCell = ({ row, name }) => {
+export function CustomTableCell({ row, name }) {
   return (
     <StyledTableCell align="left" aria-label="table-cell">
       {row[name]}

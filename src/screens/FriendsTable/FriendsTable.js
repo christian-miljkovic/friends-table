@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { CustomTableCell } from './components/CustomTableCell'
 import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -7,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { IconButton } from '@material-ui/core'
-import { ClickableRow } from './components/ClickableRow'
 
 // Icons
 import AddCircle from '@material-ui/icons/AddCircle'
@@ -39,6 +39,11 @@ const StyledTableCell = styled(TableCell)`
   width: 100%;
 `
 
+const StyledTableHeader = styled(TableHead)`
+  display: flex;
+  width: 375px;
+`
+
 const createData = (firstName, lastName, birthday, phoneNumber) => ({
   id: uuidv4(),
   firstName,
@@ -53,12 +58,10 @@ const CustomTable = () => {
   const { clientId } = useParams()
   const [rows, setRows] = useState([createData('', '', '', '')])
   const [previous, setPrevious] = useState({})
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const getQueryKey = [QUERIES.FRIENDS.ALL, clientId]
-  const { data: friendsData, isSuccess: isGetFriendsSuccess, isLoading: isGetFriendsLoading } = useQuery(
-    getQueryKey,
-    getFriends,
-  )
+  const { data: friendsData, isLoading: isGetFriendsLoading } = useQuery(getQueryKey, getFriends)
 
   const [createFriendsQuery] = useMutation(createFriends, {
     onError() {
@@ -130,20 +133,25 @@ const CustomTable = () => {
   }
 
   return (
-    <div>
+    <>
       <StyledPaper>
         <StyledTable aria-label="caption table">
-          <TableHead>
+          <StyledTableHeader>
             <TableRow>
               <StyledTableCell align="left">First Name</StyledTableCell>
               <StyledTableCell align="left">Last Name</StyledTableCell>
               <StyledTableCell align="left">Birthday</StyledTableCell>
               <StyledTableCell align="left">Phone Number</StyledTableCell>
             </TableRow>
-          </TableHead>
+          </StyledTableHeader>
           <TableBody>
             {rows.map((row, index) => (
-              <ClickableRow row={row} index={index} />
+              <TableRow key={row.id} aria-label={`row-${index}`} onClick={() => console.debug('hello')}>
+                <CustomTableCell {...{ row, name: 'firstName' }} />
+                <CustomTableCell {...{ row, name: 'lastName' }} />
+                <CustomTableCell {...{ row, name: 'birthday' }} />
+                <CustomTableCell {...{ row, name: 'phoneNumber' }} />
+              </TableRow>
             ))}
           </TableBody>
         </StyledTable>
@@ -156,12 +164,14 @@ const CustomTable = () => {
           <AddCircle fontSize="large" />
         </IconButton>
       </Grid>
-    </div>
+    </>
   )
 }
 
-export const FriendsTable = () => (
-  <ToastProvider>
-    <CustomTable />
-  </ToastProvider>
-)
+export const FriendsTable = () => {
+  return (
+    <ToastProvider>
+      <CustomTable />
+    </ToastProvider>
+  )
+}
