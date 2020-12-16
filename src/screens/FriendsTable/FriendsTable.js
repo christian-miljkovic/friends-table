@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { CustomTableCell } from './components/CustomTableCell/CustomTableCell'
-import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -12,7 +11,6 @@ import { FriendModal } from './components/FriendModal'
 
 // Icons
 import AddCircle from '@material-ui/icons/AddCircle'
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { v4 as uuidv4 } from 'uuid'
 import { createFriends, getFriends } from './api/friends'
 import { useMutation, useQuery } from 'react-query'
@@ -89,8 +87,8 @@ const CustomTable = () => {
     }
   }, [friendsData])
 
-  const onUploadClick = async () => {
-    await createFriendsQuery({ clientId, body: rows })
+  const onSubmit = async (values) => {
+    await createFriendsQuery({ clientId, body: [values] })
   }
 
   const addRow = () => {
@@ -109,6 +107,10 @@ const CustomTable = () => {
   const handleClick = (row) => {
     setIsModalOpen(true)
     setModalData(row)
+  }
+
+  const handleOnClose = () => {
+    setIsModalOpen(false)
   }
 
   return (
@@ -135,15 +137,13 @@ const CustomTable = () => {
           </TableBody>
         </StyledTable>
       </StyledPaper>
-      <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
-        <IconButton aria-label="upload-button" onClick={() => onUploadClick()}>
-          <CloudUploadIcon fontSize="large" />
-        </IconButton>
+      <div>
         <IconButton aria-label="add-row-button" onClick={() => addRow()}>
           <AddCircle fontSize="large" />
         </IconButton>
-      </Grid>
-      <FriendModal isOpen={isModalOpen} data={modalData} />
+        {'Add another row!'}
+      </div>
+      <FriendModal isOpen={isModalOpen} data={modalData} handleOnClose={handleOnClose} onSubmit={onSubmit} />
     </>
   )
 }

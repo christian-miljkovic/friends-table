@@ -1,10 +1,7 @@
 ## Next Steps
 
-1. Make row clickable
-2. Fix birthday conversion code (research if FE or BE should handle this)
-3. Validate and require data input into the table
-4. Delete friends
-5. Make mock service worker so you can work on this remotely
+1. Validate and require data input into the table
+2. Check to see if backend can take just one object and not array
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
