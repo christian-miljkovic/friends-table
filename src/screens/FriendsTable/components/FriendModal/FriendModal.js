@@ -7,8 +7,8 @@ import { FriendForm } from '../FriendForm'
 const StyledPaper = styled(Paper)`
   position: 'absolute';
   width: 75%;
-  height: 50%;
-  border-radius: 8px;
+  height: 70%;
+  border-radius: 10px;
   position: relative;
   left: 45px;
   top: 50px;

@@ -2,6 +2,9 @@
 
 1. Validate and require data input into the table
 2. Check to see if backend can take just one object and not array
+3. Validate that creating new friend works
+4. Styling form to be better for iphone users
+5. Tests
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
