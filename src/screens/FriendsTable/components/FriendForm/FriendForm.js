@@ -34,7 +34,8 @@ const StyledButton = styled.button`
 
 export function FriendForm({ onSubmit }) {
   const handleSubmit = async (values) => {
-    onSubmit(values)
+    const phoneNumber = '+' + values.phoneNumber.replace(/[^\d]/g, '')
+    onSubmit({ ...values, phoneNumber })
   }
 
   const validator = (values) => {

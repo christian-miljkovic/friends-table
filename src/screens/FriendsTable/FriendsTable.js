@@ -35,7 +35,8 @@ const StyledTable = styled(Table)`
 `
 
 const StyledTableCell = styled(TableCell)`
-  width: 100%;
+  width: 50%;
+  padding: 16px 16px;
 `
 
 const StyledTableHeader = styled(TableHead)`
@@ -79,9 +80,9 @@ const CustomTable = () => {
     if (!isUndefined(friends) && !isEmpty(friends)) {
       let allFriendRows = []
       friendsData.data.forEach((friend) => {
-        const { firstName, lastName, birthday, phoneNumber } = friend
+        const { birthday } = friend
         const formattedBirthday = dayjs(birthday).format('MM-DD-YYYY')
-        allFriendRows.push(createData(firstName, lastName, formattedBirthday, phoneNumber))
+        allFriendRows.push(createData({ ...friend, formattedBirthday }))
       })
       setRows(allFriendRows)
     }
@@ -141,7 +142,7 @@ const CustomTable = () => {
         <IconButton aria-label="add-row-button" onClick={() => addRow()}>
           <AddCircle fontSize="large" />
         </IconButton>
-        {'Add another row!'}
+        {'Click here to add another friend!'}
       </div>
       <FriendModal isOpen={isModalOpen} data={modalData} handleOnClose={handleOnClose} onSubmit={onSubmit} />
     </>

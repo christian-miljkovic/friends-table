@@ -1,10 +1,71 @@
 ## Next Steps
 
-1. Validate and require data input into the table
-2. Check to see if backend can take just one object and not array
-3. Validate that creating new friend works
-4. Styling form to be better for iphone users
-5. Tests
+1. Check to see if backend can take just one object and not array
+2. Validate that creating new friend works -> need to add the +1 or figure that out
+3. Tests
+
+## API Contracts
+
+### GET /alfred/v1/friend/:id
+
+```
+payload: N/A
+
+response:
+{
+  "data": [
+    {
+      "client_id": "8c7af173-7b78-47fe-ab82-0fc0995aa3f4",
+      "first_name": "Christian",
+      "last_name": "Miljkovic",
+      "phone_number": "+12035724630",
+      "birthday": "1995-01-24",
+      "id": "87168e88-9abe-49db-bd5b-e7803a2f61c2",
+      "created_at": "2020-10-16",
+      "updated_at": "2020-10-16"
+    },
+    {
+      "client_id": "8c7af173-7b78-47fe-ab82-0fc0995aa3f4",
+      "first_name": "Erick",
+      "last_name": "Miljkovic",
+      "phone_number": "+12034004630",
+      "birthday": "2000-01-24",
+      "id": "87168e99-1abe-50db-bd5b-e7803a2f61c2",
+      "created_at": "2020-10-16",
+      "updated_at": "2020-10-16"
+    }
+  ]
+}
+```
+
+### POST /alfred/v1/friend/:id/create
+
+```
+payload:
+{
+  "data": [
+    { "firstName": "Christian", "lastName": "Miljkovic", "birthday": "1995-01-24", "phoneNumber": "+12035724630" }
+  ]
+}
+
+response:
+{
+  "data": [
+    {
+      "client_id": "7f51bc99-6b6e-4ba7-9cd7-1d2c3b89305d",
+      "first_name": "Christian",
+      "last_name": "Miljkovic",
+      "phone_number": "+12035724630",
+      "birthday": "1995-01-24",
+      "id": "a1995968-246c-41aa-91ae-238c78e326a9",
+      "created_at": "2020-12-23",
+      "updated_at": "2020-12-23"
+    }
+  ]
+}
+
+
+```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
