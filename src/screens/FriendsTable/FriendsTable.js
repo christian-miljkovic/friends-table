@@ -44,7 +44,7 @@ const StyledTableHeader = styled(TableHead)`
   width: 375px;
 `
 
-const createData = (firstName, lastName, birthday, phoneNumber) => ({
+const createData = ({ firstName = '', lastName = '', birthday = '', phoneNumber = '' } = {}) => ({
   id: uuidv4(),
   firstName,
   lastName,
@@ -56,7 +56,7 @@ const createData = (firstName, lastName, birthday, phoneNumber) => ({
 const CustomTable = () => {
   const { addToast } = useToasts()
   const { clientId } = useParams()
-  const [rows, setRows] = useState([createData('', '', '', '')])
+  const [rows, setRows] = useState([createData()])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState()
 
@@ -69,9 +69,10 @@ const CustomTable = () => {
     },
     onSuccess(data) {
       addToast('Successfully added friends', { appearance: 'success' })
-      const { firstName, lastName, birthday, phoneNumber } = data
-      const newRows = rows.concat(createData(firstName, lastName, birthday, phoneNumber))
-      setRows(newRows)
+      data.forEach((friend) => {
+        const newRow = rows.concat(createData({ ...friend }))
+        setRows(newRow)
+      })
     },
   })
 
@@ -82,7 +83,7 @@ const CustomTable = () => {
       friendsData.data.forEach((friend) => {
         const { birthday } = friend
         const formattedBirthday = dayjs(birthday).format('MM-DD-YYYY')
-        allFriendRows.push(createData({ ...friend, formattedBirthday }))
+        allFriendRows.push(createData({ ...friend, phoneNumber: formattedBirthday }))
       })
       setRows(allFriendRows)
     }
