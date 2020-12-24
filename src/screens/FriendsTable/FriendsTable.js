@@ -21,6 +21,7 @@ import isEmpty from 'lodash/isEmpty'
 import isUndefined from 'lodash/isUndefined'
 import dayjs from 'dayjs'
 import styled from 'styled-components'
+import { useEffectOnce } from '../../util/hooks'
 
 const StyledPaper = styled(Paper)`
   @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
@@ -61,19 +62,24 @@ const CustomTable = () => {
   const [modalData, setModalData] = useState()
 
   const getQueryKey = [QUERIES.FRIENDS.ALL, clientId]
-  const { data: friendsData, isLoading: isGetFriendsLoading } = useQuery(getQueryKey, getFriends)
+  const { data: friendsData } = useQuery(getQueryKey, getFriends)
 
   const [createFriendsQuery] = useMutation(createFriends, {
     onError() {
       addToast('Failed to add friends', { appearance: 'error' })
     },
-    onSuccess(data) {
+    onSuccess(resp) {
       addToast('Successfully added friends', { appearance: 'success' })
-      data.forEach((friend) => {
+      resp.data.forEach((friend) => {
         const newRow = rows.concat(createData({ ...friend }))
         setRows(newRow)
+        window.heap.track('Friend Created', { friend: { ...friend } })
       })
     },
+  })
+
+  useEffectOnce(() => {
+    window.heap.loaded && window.heap.identify(clientId)
   })
 
   useEffect(() => {

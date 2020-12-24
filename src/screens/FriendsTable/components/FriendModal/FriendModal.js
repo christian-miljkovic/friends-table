@@ -15,8 +15,6 @@ const StyledPaper = styled(Paper)`
 `
 
 export function FriendModal({ data = {}, handleOnClose, isOpen, onSubmit }) {
-  const { firstName, lastName } = data
-
   const body = (
     <StyledPaper>
       <FriendForm onSubmit={onSubmit} />
