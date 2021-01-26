@@ -25,6 +25,20 @@ export const handlers = [
       }),
     )
   }),
+  rest.get(`${apiUrl}/alfred/v1/friend/321/client/123?token=${token}`, (req, res, ctx) => {
+    return res(
+      ctx.json({
+        data: {
+          id: '123',
+          client_id: '321',
+          first_name: 'Christian',
+          last_name: 'Miljkovic',
+          birthday: null,
+          phone_number: '+12035724630',
+        },
+      }),
+    )
+  }),
   rest.post(`${apiUrl}/alfred/v1/friend/123/create?token=${token}`, (req, res, ctx) => {
     return res(
       ctx.json({

@@ -1,3 +1,3 @@
 export const QUERIES = Object.freeze({
-  FRIENDS: 'FRIENDS',
+  FRIEND: { ALL: 'FRIENDS', SINGLE: 'FRIEND' },
 })

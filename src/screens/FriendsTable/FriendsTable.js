@@ -12,7 +12,7 @@ import { FriendModal } from './components/FriendModal'
 // Icons
 import AddCircle from '@material-ui/icons/AddCircle'
 import { v4 as uuidv4 } from 'uuid'
-import { createFriends, getFriends } from './api/friends'
+import { createFriends, getAllFriends } from '../api/friends'
 import { useMutation, useQuery } from 'react-query'
 import { QUERIES } from '../../api/queries'
 import { useParams } from 'react-router-dom'
@@ -61,8 +61,8 @@ const CustomTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState()
 
-  const getQueryKey = [QUERIES.FRIENDS.ALL, clientId]
-  const { data: friendsData } = useQuery(getQueryKey, getFriends)
+  const getQueryKey = [QUERIES.FRIEND.ALL, clientId]
+  const { data: friendsData } = useQuery(getQueryKey, getAllFriends)
 
   const [createFriendsQuery] = useMutation(createFriends, {
     onError() {

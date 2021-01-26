@@ -1,3 +1,7 @@
+# Friends Table
+
+Frontend containing a table where users can add friends birthdays.
+
 ## Next Steps
 
 1. Check to see if backend can take just one object and not array

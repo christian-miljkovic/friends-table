@@ -21,7 +21,7 @@ describe('Friends Table', () => {
   it('should be able to get all friends for a client', () => {
     cy.server()
     cy.fixture('friendsData').as('friendsJson')
-    cy.route(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientUUID)}?token=${token}`, '@friendsJson').as('friends')
+    cy.route(`${ENDPOINTS.FRIEND.ALL.replace(':id', clientUUID)}?token=${token}`, '@friendsJson').as('friends')
     cy.visit(`/table/${clientUUID}`)
 
     cy.wait('@friends').then(({ response }) => {
@@ -35,10 +35,10 @@ describe('Friends Table', () => {
     // might have to convert this to camelCase + look if backend needs array or if we just
     // send object
     cy.fixture('createFriendsData').as('createFriendsJson')
-    cy.route(`${ENDPOINTS.FRIENDS.ALL.replace(':id', clientUUID)}?token=${token}`, '')
+    cy.route(`${ENDPOINTS.FRIEND.ALL.replace(':id', clientUUID)}?token=${token}`, '')
     cy.route(
       HTTP.POST,
-      `${ENDPOINTS.FRIENDS.CREATE.replace(':id', clientUUID)}?token=${token}`,
+      `${ENDPOINTS.FRIEND.CREATE.replace(':id', clientUUID)}?token=${token}`,
       '@createFriendsJson',
     ).as('newFriends')
     cy.visit(`/table/${clientUUID}`)
