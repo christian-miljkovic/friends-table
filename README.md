@@ -4,9 +4,15 @@ Frontend containing a table where users can add friends birthdays.
 
 ## Next Steps
 
-1. Check to see if backend can take just one object and not array
-2. Validate that creating new friend works -> need to add the +1 or figure that out
-3. Tests
+1. Friend Form
+
+- Add final form
+- Add PUT friends query
+- Tests on screen
+
+2. Check to see if backend can take just one object and not array
+3. Validate that creating new friend works -> need to add the +1 or figure that out
+4. Tests
 
 ## API Contracts
 
