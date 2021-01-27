@@ -54,7 +54,7 @@ const createData = ({ firstName = '', lastName = '', birthday = '', phoneNumber 
   isEditMode: false,
 })
 
-const CustomTable = () => {
+export const FriendsTable = () => {
   const { addToast } = useToasts()
   const { clientId } = useParams()
   const [rows, setRows] = useState([createData()])
@@ -122,7 +122,7 @@ const CustomTable = () => {
   }
 
   return (
-    <>
+    <ToastProvider>
       <StyledPaper>
         <StyledTable aria-label="caption table">
           <StyledTableHeader>
@@ -152,14 +152,6 @@ const CustomTable = () => {
         {'Click here to add another friend!'}
       </div>
       <FriendModal isOpen={isModalOpen} data={modalData} handleOnClose={handleOnClose} onSubmit={onSubmit} />
-    </>
-  )
-}
-
-export const FriendsTable = () => {
-  return (
-    <ToastProvider>
-      <CustomTable />
     </ToastProvider>
   )
 }
