@@ -89,7 +89,7 @@ const BaseFriendsTable = () => {
       friendsData.data.forEach((friend) => {
         const { birthday } = friend
         const formattedBirthday = dayjs(birthday).format('MM-DD-YYYY')
-        allFriendRows.push(createData({ ...friend, phoneNumber: formattedBirthday }))
+        allFriendRows.push(createData({ ...friend, birthday: formattedBirthday }))
       })
       setRows(allFriendRows)
     }
