@@ -23,3 +23,11 @@ export function createFriends({ _key, clientId, body }) {
     body: { data: body },
   })
 }
+
+export function updateFriend({ _key, friendId, clientId, body }) {
+  const path = ENDPOINTS.FRIEND.UPDATE.replace(':friendId', friendId).replace(':clientId', clientId)
+  return request(`${path}?token=${token}`, {
+    method: HTTP.PUT,
+    body: { data: body },
+  })
+}
