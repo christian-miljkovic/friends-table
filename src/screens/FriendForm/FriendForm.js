@@ -88,7 +88,7 @@ const BaseFriendForm = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <StyledPaper>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" aria-label="Header">
           Hey {friend?.data.firstName} please update your info below!
         </Typography>
         <Form
