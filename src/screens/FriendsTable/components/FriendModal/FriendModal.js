@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from '@material-ui/core/Modal'
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
-import { FriendForm } from '../FriendForm'
+import { CreateFriendForm } from '../CreateFriendForm'
 
 const StyledPaper = styled(Paper)`
   position: 'absolute';
@@ -17,7 +17,7 @@ const StyledPaper = styled(Paper)`
 export function FriendModal({ data = {}, handleOnClose, isOpen, onSubmit }) {
   const body = (
     <StyledPaper>
-      <FriendForm onSubmit={onSubmit} />
+      <CreateFriendForm onSubmit={onSubmit} />
     </StyledPaper>
   )
 

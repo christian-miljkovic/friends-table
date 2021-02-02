@@ -32,7 +32,7 @@ const StyledButton = styled.button`
   }
 `
 
-export function FriendForm({ onSubmit }) {
+export function CreateFriendForm({ onSubmit }) {
   const handleSubmit = async (values) => {
     const phoneNumber = '+' + values.phoneNumber.replace(/[^\d]/g, '')
     onSubmit({ ...values, phoneNumber })

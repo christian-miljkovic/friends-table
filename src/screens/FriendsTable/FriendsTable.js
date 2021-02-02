@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import Button from '@material-ui/core/Button'
 import { CustomTableCell } from './components/CustomTableCell/CustomTableCell'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
-import { IconButton } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 import { FriendModal } from './components/FriendModal'
 
 // Icons
-import AddCircle from '@material-ui/icons/AddCircle'
 import { v4 as uuidv4 } from 'uuid'
 import { createFriends, getAllFriends } from '../api/friends'
 import { useMutation, useQuery } from 'react-query'
@@ -23,12 +22,17 @@ import dayjs from 'dayjs'
 import styled from 'styled-components'
 import { useEffectOnce } from '../../util/hooks'
 
-const StyledPaper = styled(Paper)`
-  @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
-    width: 375px;
-  }
-  width: 375px;
-  margin-top: 10px;
+const StyledSubmitButton = styled.div`
+  margin: 24px 0px 2px;
+  max-width: 50%;
+  margin-left: 85px;
+`
+
+const StyledPaper = styled.div`
+  margin-top: 50px;
+  display: 'flex';
+  flex-direction: 'column';
+  align-items: 'center';
 `
 
 const StyledTable = styled(Table)`
@@ -45,7 +49,12 @@ const StyledTableHeader = styled(TableHead)`
   width: 375px;
 `
 
-const createData = ({ firstName = '', lastName = '', birthday = '', phoneNumber = '' } = {}) => ({
+const createData = ({
+  firstName = 'click here',
+  lastName = 'to add a friend',
+  birthday = '',
+  phoneNumber = '',
+} = {}) => ({
   id: uuidv4(),
   firstName,
   lastName,
@@ -124,6 +133,9 @@ const BaseFriendsTable = () => {
   return (
     <>
       <StyledPaper>
+        <Typography component="h1" variant="h5" aria-label="Header" align="center">
+          Contacts
+        </Typography>
         <StyledTable aria-label="caption table">
           <StyledTableHeader>
             <TableRow>
@@ -144,13 +156,13 @@ const BaseFriendsTable = () => {
             ))}
           </TableBody>
         </StyledTable>
+        <StyledSubmitButton>
+          <Button type="submit" variant="contained" color="primary" onClick={() => addRow()}>
+            Add another friend
+          </Button>
+        </StyledSubmitButton>
       </StyledPaper>
-      <div>
-        <IconButton aria-label="add-row-button" onClick={() => addRow()}>
-          <AddCircle fontSize="large" />
-        </IconButton>
-        {'Click here to add another friend!'}
-      </div>
+
       <FriendModal isOpen={isModalOpen} data={modalData} handleOnClose={handleOnClose} onSubmit={onSubmit} />
     </>
   )
