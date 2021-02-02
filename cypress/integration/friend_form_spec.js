@@ -20,11 +20,11 @@ describe('Friends Form', () => {
   it('should be able to see all friend data', () => {
     cy.wait('@friend').then(({ response }) => {
       const friend = response?.body?.data
-      cy.findByLabelText(/header/i, `Hey ${friend.firstName} please update your info below!`)
-      cy.findByLabelText(/first name/i, friend.firstName)
-      cy.findByLabelText(/last name/i, friend.lastName)
-      cy.findByLabelText(/phone number/i, friend.phoneNumber)
-      cy.findByRole('button', { name: /save your info/i })
+      cy.findByLabelText(/header/i, `Hey ${friend.firstName} please update your info below!`).should('be.visible')
+      cy.findByLabelText(/first name/i, friend.firstName).should('be.visible')
+      cy.findByLabelText(/last name/i, friend.lastName).should('be.visible')
+      cy.findByLabelText(/phone number/i, friend.phoneNumber).should('be.visible')
+      cy.findByRole('button', { name: /save your info/i }).should('be.visible')
     })
   })
 
@@ -32,6 +32,7 @@ describe('Friends Form', () => {
     cy.wait('@friend').then(({ response }) => {
       cy.findByLabelText(/birthday/i).type('1995-01-24')
       cy.findByRole('button', { name: /save your info/i }).click()
+      cy.findByText(/successfully updated your info!/i).should('be.visible')
     })
   })
 })
