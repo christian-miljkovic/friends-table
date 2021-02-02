@@ -4,14 +4,7 @@ Frontend containing a table where users can add friends birthdays.
 
 ## Next Steps
 
-1. Friend Form
-
-- Tests
-  - FriendForm
-  - Friends Table
-
-3. Validate that creating new friend works -> need to add the +1 or figure that out
-4. Tests
+1. Tests for Friends Table
 
 ## API Contracts
 
