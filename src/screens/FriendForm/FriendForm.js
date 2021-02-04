@@ -167,7 +167,7 @@ const BaseFriendForm = () => {
                         fullWidth
                         name="phoneNumber"
                         label="Phone Number"
-                        id="phoneNUmber"
+                        id="phoneNumber"
                         disabled={true}
                         value={friend?.data.phoneNumber || ''}
                       />

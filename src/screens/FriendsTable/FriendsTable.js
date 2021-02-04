@@ -68,7 +68,6 @@ const BaseFriendsTable = () => {
   const { clientId } = useParams()
   const [rows, setRows] = useState([createData()])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalData, setModalData] = useState()
 
   const getQueryKey = [QUERIES.FRIEND.ALL, clientId]
   const { data: friendsData } = useQuery(getQueryKey, getAllFriends)
@@ -78,7 +77,7 @@ const BaseFriendsTable = () => {
       addToast('Failed to add friends', { appearance: 'error' })
     },
     onSuccess(resp) {
-      addToast('Successfully added friends', { appearance: 'success' })
+      addToast('Successfully added friend!', { appearance: 'success' })
       resp.data.forEach((friend) => {
         const newRow = rows.concat(createData({ ...friend }))
         setRows(newRow)
@@ -97,7 +96,7 @@ const BaseFriendsTable = () => {
       let allFriendRows = []
       friendsData.data.forEach((friend) => {
         const { birthday } = friend
-        const formattedBirthday = dayjs(birthday).format('MM-DD-YYYY')
+        const formattedBirthday = birthday ? dayjs(birthday).format('MM-DD-YYYY') : ''
         allFriendRows.push(createData({ ...friend, birthday: formattedBirthday }))
       })
       setRows(allFriendRows)
@@ -106,27 +105,6 @@ const BaseFriendsTable = () => {
 
   const onSubmit = async (values) => {
     await createFriendsQuery({ clientId, body: [values] })
-  }
-
-  const addRow = () => {
-    const lastRow = rows[rows.length - 1]
-    if (!isRowEmpty(lastRow)) {
-      const newEmptyRow = createData('', '', '', '')
-      const newRows = rows.concat(newEmptyRow)
-      setRows(newRows)
-    }
-  }
-
-  const isRowEmpty = (row) => {
-    return !(row.firstName && row.lastName && row.birthday && row.phoneNumber)
-  }
-
-  const handleClick = (row) => {
-    setIsModalOpen(true)
-    setModalData(row)
-  }
-
-  const handleOnClose = () => {
     setIsModalOpen(false)
   }
 
@@ -147,7 +125,7 @@ const BaseFriendsTable = () => {
           </StyledTableHeader>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow key={row.id} aria-label={`row-${index}`} onClick={() => handleClick(row)}>
+              <TableRow key={row.id} aria-label={`row-${index}`}>
                 <CustomTableCell {...{ row, name: 'firstName' }} />
                 <CustomTableCell {...{ row, name: 'lastName' }} />
                 <CustomTableCell {...{ row, name: 'birthday' }} />
@@ -157,13 +135,12 @@ const BaseFriendsTable = () => {
           </TableBody>
         </StyledTable>
         <StyledSubmitButton>
-          <Button type="submit" variant="contained" color="primary" onClick={() => addRow()}>
+          <Button type="submit" variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
             Add another friend
           </Button>
         </StyledSubmitButton>
       </StyledPaper>
-
-      <FriendModal isOpen={isModalOpen} data={modalData} handleOnClose={handleOnClose} onSubmit={onSubmit} />
+      <FriendModal isOpen={isModalOpen} onSubmit={onSubmit} />
     </>
   )
 }

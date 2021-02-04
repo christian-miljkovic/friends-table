@@ -1,35 +1,32 @@
 import React from 'react'
 import { Form, Field } from 'react-final-form'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
 import MuiPhoneNumber from 'material-ui-phone-number'
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
+
+const StyledPaper = styled.div`
+  margin-top: 160px;
+  display: 'flex';
+  flex-direction: 'column';
+  align-items: 'center';
+`
 
 const StyledForm = styled.form`
   padding-top: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
 `
 
 const StyledField = styled.div`
-  margin: 10px;
+  margin: 20px;
   label {
     padding-right: 25px;
   }
 `
-const StyledButton = styled.button`
-  background-color: #00c804;
-  border-radius: 4px;
-  outline: none;
-  width: 50%;
-  margin: auto;
-  padding: 10px;
-  color: white;
-  margin-top: 25px;
-
-  &:disabled {
-    background: #9fa7b3;
-  }
+const StyledSubmitButton = styled(Button)`
+  margin: 25px 60px;
 `
 
 export function CreateFriendForm({ onSubmit }) {
@@ -46,9 +43,6 @@ export function CreateFriendForm({ onSubmit }) {
     if (!values.lastName) {
       errors.lastName = 'Required'
     }
-    if (!values.birthday) {
-      errors.birthday = 'Required'
-    }
     if (!values.phoneNumber) {
       errors.phoneNumber = 'Required'
     }
@@ -56,71 +50,78 @@ export function CreateFriendForm({ onSubmit }) {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      validate={validator}
-      render={({ handleSubmit, valid, submitting }) => (
-        <StyledForm onSubmit={handleSubmit}>
-          <StyledField>
-            <Field name="firstName">
-              {({ input, meta }) => (
-                <TextField
-                  {...input}
-                  type="text"
-                  placeholder="First Name"
-                  error={meta.error && meta.touched}
-                  helperText={'Need your friends name ;)'}
-                  variant="filled"
-                />
-              )}
-            </Field>
-          </StyledField>
-          <StyledField>
-            <Field name="lastName">
-              {({ input, meta }) => (
-                <TextField
-                  {...input}
-                  type="text"
-                  placeholder="Last Name"
-                  error={meta.error && meta.touched}
-                  helperText={'And of course the last name!'}
-                  variant="filled"
-                />
-              )}
-            </Field>
-          </StyledField>
-          <StyledField>
-            <Field name="birthday">
-              {({ input, meta }) => (
-                <TextField
-                  type="date"
-                  {...input}
-                  defaultValue="1995-01-24"
-                  error={meta.error && meta.touched}
-                  helperText={'Gonna need you to remember this one'}
-                  variant="filled"
-                />
-              )}
-            </Field>
-          </StyledField>
-          <StyledField>
-            <Field name="phoneNumber">
-              {({ input, meta }) => (
-                <MuiPhoneNumber
-                  defaultValue="hi"
-                  defaultCountry={'us'}
-                  error={meta.error && meta.touched}
-                  variant="filled"
-                  {...input}
-                />
-              )}
-            </Field>
-          </StyledField>
-          <StyledButton type="submit" disabled={!valid || submitting}>
-            {!valid || submitting ? 'Gotta finish the form :(' : 'Add Friend!'}
-          </StyledButton>
-        </StyledForm>
-      )}
-    />
+    <Container component="main" maxWidth="xs">
+      <StyledPaper>
+        <Typography component="h1" variant="h5" aria-label="Header" align="center">
+          Contact Info
+        </Typography>
+        <Form
+          onSubmit={handleSubmit}
+          validate={validator}
+          render={({ handleSubmit, valid, submitting }) => (
+            <StyledForm onSubmit={handleSubmit}>
+              <StyledField>
+                <Field name="firstName">
+                  {({ input, meta }) => (
+                    <TextField
+                      autoComplete="fname"
+                      name="firstName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      autoFocus
+                      error={meta.error && meta.touched}
+                      {...input}
+                    />
+                  )}
+                </Field>
+              </StyledField>
+              <StyledField>
+                <Field name="lastName">
+                  {({ input, meta }) => (
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      name="lastName"
+                      autoComplete="lname"
+                      error={meta.error && meta.touched}
+                      {...input}
+                    />
+                  )}
+                </Field>
+              </StyledField>
+              <StyledField>
+                <Field name="phoneNumber">
+                  {({ input, meta }) => (
+                    <MuiPhoneNumber
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="phoneNumber"
+                      label="Phone Number"
+                      id="phoneNumber"
+                      {...input}
+                    />
+                  )}
+                </Field>
+              </StyledField>
+              <StyledSubmitButton type="submit" variant="contained" fullWidth color="primary">
+                Add Friend!
+              </StyledSubmitButton>
+            </StyledForm>
+          )}
+        />
+        <Box mt={5}>
+          <Typography variant="caption" aria-label="footer" align="center" color="textSecondary">
+            * Text Alfred 'Get friends birthdays' to have him ask your friends their birthdays for you!
+          </Typography>
+        </Box>
+      </StyledPaper>
+    </Container>
   )
 }

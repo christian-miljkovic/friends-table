@@ -7,23 +7,19 @@ import { CreateFriendForm } from '../CreateFriendForm'
 const StyledPaper = styled(Paper)`
   position: 'absolute';
   width: 75%;
-  height: 70%;
-  border-radius: 10px;
+  height: 60%;
+  border-radius: 20px;
   position: relative;
   left: 45px;
   top: 50px;
 `
 
-export function FriendModal({ data = {}, handleOnClose, isOpen, onSubmit }) {
+export function FriendModal({ data = {}, isOpen, onSubmit }) {
   const body = (
     <StyledPaper>
       <CreateFriendForm onSubmit={onSubmit} />
     </StyledPaper>
   )
 
-  return (
-    <Modal open={isOpen} onClose={handleOnClose}>
-      {body}
-    </Modal>
-  )
+  return <Modal open={isOpen}>{body}</Modal>
 }
