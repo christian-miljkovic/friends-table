@@ -49,12 +49,7 @@ const StyledTableHeader = styled(TableHead)`
   width: 375px;
 `
 
-const createData = ({
-  firstName = 'click here',
-  lastName = 'to add a friend',
-  birthday = '',
-  phoneNumber = '',
-} = {}) => ({
+const createData = ({ firstName = '', lastName = '', birthday = '', phoneNumber = '' } = {}) => ({
   id: uuidv4(),
   firstName,
   lastName,
