@@ -103,6 +103,10 @@ const BaseFriendsTable = () => {
     setIsModalOpen(false)
   }
 
+  function handleClose() {
+    setIsModalOpen(false)
+  }
+
   return (
     <>
       <StyledPaper>
@@ -135,7 +139,7 @@ const BaseFriendsTable = () => {
           </Button>
         </StyledSubmitButton>
       </StyledPaper>
-      <FriendModal isOpen={isModalOpen} onSubmit={onSubmit} />
+      <FriendModal isOpen={isModalOpen} onSubmit={onSubmit} handleClose={handleClose} />
     </>
   )
 }

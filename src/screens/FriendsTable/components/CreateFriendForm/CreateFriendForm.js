@@ -100,6 +100,7 @@ export function CreateFriendForm({ onSubmit }) {
                   {({ input, meta }) => (
                     <MuiPhoneNumber
                       variant="outlined"
+                      defaultCountry="us"
                       required
                       fullWidth
                       name="phoneNumber"

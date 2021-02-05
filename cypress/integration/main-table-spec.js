@@ -1,31 +1,37 @@
+import { createFriend } from '../generators/friends'
 import { ENDPOINTS } from '../../src/api/endpoints'
+import { HTTP } from '../../src/api/http'
 import { convertToCamelCase } from '../../src/util/transformers'
-import { v4 as uuidv4 } from 'uuid'
+import dayjs from 'dayjs'
 
-const clientUUID = uuidv4()
 const token = Cypress.env('REACT_APP_API_TOKEN')
 
-const hasFriendsPresent = (friends = []) => {
-  friends.map((friend, index) => {
-    cy.findByText(friend.firstName)
-    cy.findByLabelText(`row-${index}`).within(() => {
-      cy.findByLabelText(/lastname-cell/i).contains(friend.lastName)
-      cy.findByLabelText(/birthday-cell/i).contains(friend.birthday)
-      cy.findByLabelText(/phonenumber-cell/i).contains(friend.phoneNumber)
-    })
-  })
-}
-
 describe('Friends Table', () => {
-  it('should be able to get all friends for a client', () => {
+  beforeEach(() => {
     cy.server()
-    cy.fixture('friendsData').as('friendsJson')
-    cy.route(`${ENDPOINTS.FRIEND.ALL.replace(':id', clientUUID)}?token=${token}`, '@friendsJson').as('friends')
-    cy.visit(`/table/${clientUUID}`)
+    const friendData = convertToCamelCase(
+      createFriend({ data: [{ birthday: '1995-01-24' }, { birthday: '200-01-24' }] }, { number: 2 }),
+    )
+    const { clientId } = friendData.data[0]
+    cy.route(HTTP.GET, `${ENDPOINTS.FRIEND.ALL.replace(':id', clientId)}?token=${token}`, friendData).as('friends')
+    cy.visit(`/table/${clientId}`)
+  })
 
+  it('should be able to get all friends for a client', () => {
     cy.wait('@friends').then(({ response }) => {
-      const friends = response?.body?.data
-      hasFriendsPresent(convertToCamelCase(friends))
+      const friends = response.body.data
+      cy.findByRole('table', { name: /caption table/i }).within(() => {
+        friends.forEach((friend, index) => {
+          const { firstName, lastName, birthday, phoneNumber } = friend
+          const formattedBirthday = dayjs(birthday).format('MM-DD-YYYY')
+          cy.findByLabelText(`row-${index}`).within(() => {
+            cy.findByText(firstName).should('be.visible')
+            cy.findByText(lastName).should('be.visible')
+            cy.findByText(formattedBirthday).should('be.visible')
+            cy.findByText(phoneNumber).should('be.visible')
+          })
+        })
+      })
     })
   })
 })

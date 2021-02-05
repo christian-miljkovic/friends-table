@@ -14,12 +14,16 @@ const StyledPaper = styled(Paper)`
   top: 50px;
 `
 
-export function FriendModal({ data = {}, isOpen, onSubmit }) {
+export function FriendModal({ handleClose, isOpen, onSubmit }) {
   const body = (
     <StyledPaper>
       <CreateFriendForm onSubmit={onSubmit} />
     </StyledPaper>
   )
 
-  return <Modal open={isOpen}>{body}</Modal>
+  return (
+    <Modal open={isOpen} onBackdropClick={handleClose}>
+      {body}
+    </Modal>
+  )
 }
