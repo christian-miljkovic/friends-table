@@ -12,7 +12,7 @@ export function getFriend(_key, { clientId, friendId }) {
 }
 
 export function getAllFriends(_key, clientId) {
-  return request(`${ENDPOINTS.FRIEND.ALL.replace(':id', clientId)}?token=${token}`, {
+  return request(`${ENDPOINTS.FRIEND.ALL.replace(':clientId', clientId)}?token=${token}`, {
     method: HTTP.GET,
   })
 }
@@ -29,5 +29,12 @@ export function updateFriend({ _key, friendId, clientId, body }) {
   return request(`${path}?token=${token}`, {
     method: HTTP.PUT,
     body: { data: body },
+  })
+}
+
+export function deleteFriend({ friendId }) {
+  const path = ENDPOINTS.FRIEND.DELETE.replace(':friendId', friendId)
+  return request(`${path}?token=${token}`, {
+    method: HTTP.DELETE,
   })
 }

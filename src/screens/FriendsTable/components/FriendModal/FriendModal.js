@@ -1,8 +1,13 @@
 import React from 'react'
 import Modal from '@material-ui/core/Modal'
-import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
+import styled from 'styled-components'
+import isEmpty from 'lodash/isEmpty'
 import { CreateFriendForm } from '../CreateFriendForm'
+import { BasicForm } from '../../../../components/BasicForm'
+import { deleteFriend } from '../../../api/friends'
+import { useMutation } from 'react-query'
+import { useToasts } from 'react-toast-notifications'
 
 const StyledPaper = styled(Paper)`
   position: 'absolute';
@@ -14,10 +19,31 @@ const StyledPaper = styled(Paper)`
   top: 50px;
 `
 
-export function FriendModal({ handleClose, isOpen, onSubmit }) {
+export function FriendModal({ handleClose, isOpen, onSubmit, friend = {} }) {
+  // should bring add friend query here
+  const { addToast } = useToasts()
+  const [deleteFriendQuery] = useMutation(deleteFriend, {
+    onError() {
+      addToast('Failed to delete friends', { appearance: 'error' })
+    },
+    onSuccess(resp) {
+      addToast('Successfully delete friend :(', { appearance: 'success' })
+    },
+  })
+  console.debug(friend.id)
   const body = (
     <StyledPaper>
-      <CreateFriendForm onSubmit={onSubmit} />
+      {isEmpty(friend) ? (
+        <CreateFriendForm onSubmit={onSubmit} />
+      ) : (
+        <BasicForm
+          title="Edit Friend"
+          initialValues={friend}
+          handleSubmit={() => {
+            deleteFriendQuery({ friendId: friend.id })
+          }}
+        />
+      )}
     </StyledPaper>
   )
 

@@ -63,6 +63,7 @@ const BaseFriendsTable = () => {
   const { clientId } = useParams()
   const [rows, setRows] = useState([createData()])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [friend, setFriend] = useState({})
 
   const getQueryKey = [QUERIES.FRIEND.ALL, clientId]
   const { data: friendsData } = useQuery(getQueryKey, getAllFriends)
@@ -107,6 +108,11 @@ const BaseFriendsTable = () => {
     setIsModalOpen(false)
   }
 
+  function handleRowClick(values) {
+    setFriend(values)
+    setIsModalOpen(true)
+  }
+
   return (
     <>
       <StyledPaper>
@@ -124,7 +130,13 @@ const BaseFriendsTable = () => {
           </StyledTableHeader>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow key={row.id} aria-label={`row-${index}`}>
+              <TableRow
+                key={row.id}
+                aria-label={`row-${index}`}
+                onClick={() => {
+                  handleRowClick(row)
+                }}
+              >
                 <CustomTableCell {...{ row, name: 'firstName' }} />
                 <CustomTableCell {...{ row, name: 'lastName' }} />
                 <CustomTableCell {...{ row, name: 'birthday' }} />
@@ -139,7 +151,7 @@ const BaseFriendsTable = () => {
           </Button>
         </StyledSubmitButton>
       </StyledPaper>
-      <FriendModal isOpen={isModalOpen} onSubmit={onSubmit} handleClose={handleClose} />
+      <FriendModal isOpen={isModalOpen} onSubmit={onSubmit} handleClose={handleClose} friend={friend} />
     </>
   )
 }
