@@ -100,6 +100,7 @@ const BaseFriendsTable = () => {
   }, [friendsData])
 
   const onSubmit = async (values) => {
+    console.debug({ values })
     await createFriendsQuery({ clientId, body: [values] })
     setIsModalOpen(false)
   }

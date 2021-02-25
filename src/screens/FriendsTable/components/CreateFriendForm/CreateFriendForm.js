@@ -96,6 +96,27 @@ export function CreateFriendForm({ onSubmit }) {
                 </Field>
               </StyledField>
               <StyledField>
+                <Field name="birthday">
+                  {({ input, meta }) => (
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="birthday"
+                      label="Birthday"
+                      name="birthday"
+                      autoComplete="birthday"
+                      type="date"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      error={meta.error && meta.touched}
+                      {...input}
+                    />
+                  )}
+                </Field>
+              </StyledField>
+              <StyledField>
                 <Field name="phoneNumber">
                   {({ input, meta }) => (
                     <MuiPhoneNumber
