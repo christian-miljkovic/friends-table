@@ -20,7 +20,6 @@ const StyledPaper = styled(Paper)`
 `
 
 export function FriendModal({ handleClose, isOpen, onSubmit, friend = {} }) {
-  // should bring add friend query here
   const { addToast } = useToasts()
   const [deleteFriendQuery] = useMutation(deleteFriend, {
     onError() {
@@ -30,7 +29,7 @@ export function FriendModal({ handleClose, isOpen, onSubmit, friend = {} }) {
       addToast('Successfully delete friend :(', { appearance: 'success' })
     },
   })
-  console.debug(friend.id)
+
   const body = (
     <StyledPaper>
       {isEmpty(friend) ? (

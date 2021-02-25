@@ -80,4 +80,12 @@ export const handlers = [
       }),
     )
   }),
+  rest.delete(`${apiUrl}/alfred/v1/friend/:friendId?token=${token}`, (req, res, ctx) => {
+    const { userId } = req.params
+    return res(
+      ctx.json({
+        data: userId,
+      }),
+    )
+  }),
 ]

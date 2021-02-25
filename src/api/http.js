@@ -4,4 +4,5 @@ export const HTTP = Object.freeze({
   PUT: 'PUT',
   PATCH: 'PATCH',
   OPTIONS: 'OPTIONS',
+  DELETE: 'DELETE',
 })
