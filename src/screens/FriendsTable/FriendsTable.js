@@ -49,8 +49,8 @@ const StyledTableHeader = styled(TableHead)`
   width: 375px;
 `
 
-const createData = ({ firstName = '', lastName = '', birthday = '', phoneNumber = '' } = {}) => ({
-  id: uuidv4(),
+const createData = ({ id, firstName = '', lastName = '', birthday = '', phoneNumber = '' } = {}) => ({
+  id,
   firstName,
   lastName,
   birthday,
